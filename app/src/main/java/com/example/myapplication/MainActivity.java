@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.Arrays;
 
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         TextView textView = findViewById(R.id.textView);
+        Button b = (Button) view;
+        String buttonText = b.getText().toString();
+        int counter = 0;
         switch (view.getId()) {
             case R.id.btn0:
             case R.id.btn1:
@@ -69,28 +74,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn7:
             case R.id.btn8:
             case R.id.btn9:
-//                textView.setText(getResources().getString(R.string._text) + "xd");
-//                textView.append("xd");
-                Button b = (Button) view;
-                String buttonText = b.getText().toString();
                 textView.append(buttonText);
-//                textView.append(view.getResources().getResourceName(view.getId()).substring(view.getResources().getResourceName(view.getId()).length()-1, ));
                 break;
             case R.id.btnplus:
-                // do your code
-                break;
             case R.id.btnminus:
-                // do your code
-                break;
             case R.id.btnmultiply:
-                // do your code
-                break;
             case R.id.btndivide:
-                // do your code
-                break;
             case R.id.btnpercent:
-                // do your code
+                counter++;
+                textView.append(buttonText);
+                createNumber(counter);
                 break;
+            case R.id.btndot:
             case R.id.btndel:
                 if (textView.getText().toString().length() != 0) {
                     textView.setText(textView.getText().toString().substring(0, textView.getText().toString().length()-1));
@@ -102,10 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btnequals:
-                // do your code
-                break;
-            case R.id.btndot:
-                // do your code
                 break;
             case R.id.btnneg:
                 // do your code
@@ -113,5 +104,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+    public void createNumber(int count) {
+        ArrayList<Integer> intnumbers = new ArrayList<>();
+        TextView textView = findViewById(R.id.textView);
+        String temp = textView.getText().toString();
+        int repeat  = 0;
+        int number = 0;
+        char[] chtemp = new char[temp.length()];
+        for (int i = 0; i < temp.length(); i++) {
+            chtemp[i] = temp.charAt(i);
+        }
+        System.out.println("chtemp" + Arrays.toString(chtemp));
+        ArrayList<Integer> digits = new ArrayList<>();
+        for (char c : chtemp) {
+            if (c != '-' && c != '+' && c != '*' && c != '/' && c != '%') {
+                digits.add(Integer.parseInt(String.valueOf(c)));
+            } else {
+                for (int k = 0; k < digits.toArray().length; k++) {
+                    repeat++;
+                    number *= 10;
+                    number += digits.get(k);
+//                    digits.remove()
+                }
+                System.out.println("repeat" + repeat);
+                intnumbers.add(number);
+                digits.clear();
+                System.out.println("number" + number);
+            }
+
+
+        }
+        digits.clear();
+        System.out.println("digits" + digits);
+        System.out.println("intnumbers" + intnumbers);
+//        if (temp.contains(",")) {
+//            float newNumber = Float.parseFloat(temp);
+//        } else {
+//            int newNumber = Integer.parseInt(temp);
+//        }
+
+//        ArrayList<Character> arfs = new ArrayList<>();
+//        ArrayList<Integer> arss = new ArrayList<>();
+//        for (int i = 0; i < temp.length(); i++) {
+//            if (temp.charAt(i) != '+' || temp.charAt(i) != '-' || temp.charAt(i) != '*' || temp.charAt(i) != '/' || temp.charAt(i) != '%') {
+//                arfs.add(temp.charAt(i));
+//            }
+//            System.out.println(temp.charAt(i));
+////            arfs.add(temp.charAt(i));
+//            System.out.println(arfs);
+//        }
+//
+//        for (int j = 0; j < arfs.size(); j++) {
+//            int num = Integer.parseInt(String.valueOf(arfs));
+//            arss.add(num);
+//        }
+//        System.out.println(arss);
     }
 }
