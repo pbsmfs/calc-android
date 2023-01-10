@@ -4,7 +4,7 @@
     <string name="title_activity_main2">Нереальный калькулятор</string>
     <string name="_btnAC">AC</string>
     <string name="_btnDel">del</string>
-    <string name="_btnpercent">%</string>
+    <string name="_btnpercent">^</string>
     <string name="_btndivide">/</string>
     <string name="_btn7">7</string>
     <string name="_btn8">8</string>
@@ -20,6 +20,6 @@
     <string name="_btnplus">+</string>
     <string name="_btnneg">neg</string>
     <string name="_btn0">0</string>
-    <string name="_btndot">,</string>
+    <string name="_btndot">.</string>
     <string name="_btnequals">=</string>
 </resources>
