@@ -18,7 +18,7 @@
     <string name="_btn2">2</string>
     <string name="_btn3">3</string>
     <string name="_btnplus">+</string>
-    <string name="_btnneg">neg</string>
+    <string name="_btnneg"> </string>
     <string name="_btn0">0</string>
     <string name="_btndot">.</string>
     <string name="_btnequals">=</string>
