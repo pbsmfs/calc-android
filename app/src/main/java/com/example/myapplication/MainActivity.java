@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         else {
-           if ((textView.getText().toString().endsWith("-") || textView.getText().toString().endsWith("+") || textView.getText().toString().endsWith("*") || textView.getText().toString().endsWith("/") || textView.getText().toString().endsWith("^") || textView.getText().toString().endsWith("."))) {
+           if ((textView.getText().toString().endsWith("-") || textView.getText().toString().endsWith("+") || textView.getText().toString().endsWith("*") || textView.getText().toString().endsWith("/") || textView.getText().toString().endsWith("."))) {
                textView.setText(textView.getText().toString().substring(0, textView.getText().toString().length()-1) + buttonText);
            }
            else {
@@ -144,9 +145,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ArrayList<Object> createNumbers() {
         TextView textView = findViewById(R.id.textView);
         String temp = textView.getText().toString();
-        ArrayList<Integer> digits = new ArrayList<>();
+        ArrayList<Double> digits = new ArrayList<>();
         String letters = "qwertyuiopasdfghjklzxcvbnm";
-        int intnumber = 0;
+        double intnumber = 0;
         ArrayList<Object> equation = new ArrayList<>();
         for (char k : letters.toCharArray()) {
             if (temp.contains(String.valueOf(k))) {
@@ -156,10 +157,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         for (int i = 0; i < temp.length(); i++) {
             if (temp.charAt(i) != '-' && temp.charAt(i) != '+' && temp.charAt(i) != '*' && temp.charAt(i) != '/' && temp.charAt(i) != '^' && temp.charAt(i) != '.') {
-                        digits.add(Integer.parseInt(String.valueOf(temp.charAt(i))));
+                        digits.add(Double.parseDouble(String.valueOf(temp.charAt(i))));
                         if (i + 1 == temp.length()) {
-                            Integer[] ardigits = digits.toArray(new Integer[0]);
+                            Double[] ardigits = digits.toArray(new Double[0]);
+                            System.out.println("digits" + Arrays.toString(ardigits));
+                            if (ardigits[0] == 0) {
+                                int counter = 0;
+                                while (ardigits[counter] == 0) {
+                                    counter+=1;
+                                }
+                                for (int q = 0; q < ardigits.length; q++) {
+                                    ardigits[q] = ardigits[q] * Math.pow(0.1, counter);
+                                }
+                            }
                             for (int k = 0; k < ardigits.length; k++) {
+//                                if (ardigits[k] == 0)
                                 intnumber = intnumber * 10 + ardigits[k];
                             }
                                 equation.add(intnumber);
@@ -176,9 +188,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
             else {
-                Integer[] ardigits = digits.toArray(new Integer[0]);
-                for (Integer ardigit : ardigits) {
-                    intnumber = intnumber * 10 + ardigit;
+                Double[] ardigits = digits.toArray(new Double[0]);
+                System.out.println("digits" + Arrays.toString(ardigits));
+                if (ardigits[0] == 0) {
+                    int counter = 0;
+                    while (ardigits[counter] == 0) {
+                        counter+=1;
+                    }
+                    for (int q = 0; q < ardigits.length; q++) {
+                        ardigits[q] = ardigits[q] * Math.pow(0.1, counter);
+                    }
+                }
+                for (int p = 0; p < ardigits.length; p++) {
+                    intnumber = intnumber * 10 + ardigits[p];
                 }
                 equation.add(intnumber);
                 intnumber = 0;
@@ -219,7 +241,8 @@ public void solve(ArrayList<Object> numbers) {
         }
         while (numbers.contains('.')) {
             int dot = numbers.indexOf('.');
-            double number = ((int) numbers.get(dot-1) + Math.pow(0.1, numbers.get(dot+1).toString().length()) * (int) numbers.get(dot+1));
+//            double number = (((double) numbers.get(dot-1) + Math.pow(0.1, numbers.get(dot+1).toString().length()) * (double) numbers.get(dot+1)));
+            double number = (((double) numbers.get(dot-1) + (double) numbers.get(dot+1)*0.1));
             numbers.set(dot-1, number);
             numbers.remove(dot);
             numbers.remove(dot);
@@ -228,7 +251,7 @@ public void solve(ArrayList<Object> numbers) {
 
         while (numbers.contains('^')) {
             int pow = numbers.indexOf('^');
-            BigDecimal number = BigDecimal.valueOf(Math.pow(Double.parseDouble(numbers.get(pow-1).toString()), Double.parseDouble(numbers.get(pow+1).toString()))).setScale(7, 6);
+            BigDecimal number = BigDecimal.valueOf(Math.pow(Double.parseDouble(numbers.get(pow-1).toString()), Double.parseDouble(numbers.get(pow+1).toString())));
             numbers.set(pow-1, number);
             numbers.remove(pow);
             numbers.remove(pow);
@@ -240,7 +263,7 @@ public void solve(ArrayList<Object> numbers) {
         int mult = numbers.indexOf('*');
         int div = numbers.indexOf('/');
         if (div == -1 || (mult < div && mult != -1)) {
-            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(mult-1).toString()) * (Double.parseDouble(numbers.get(mult+1).toString()))).setScale(7, 6) ;
+            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(mult-1).toString()) * (Double.parseDouble(numbers.get(mult+1).toString())));
             numbers.set(mult-1, number);
             numbers.remove(mult);
             numbers.remove(mult);
@@ -249,7 +272,7 @@ public void solve(ArrayList<Object> numbers) {
             System.out.println("muldiv2 " + numbers);
             if (Double.parseDouble(numbers.get(div+1).toString()) != 0.0) {
                 System.out.println("muldiv3 " + numbers);
-                BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(div-1).toString()) / (Double.parseDouble(numbers.get(div+1).toString()))).setScale(7, 6);
+                BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(div-1).toString()) / (Double.parseDouble(numbers.get(div+1).toString())));
                 numbers.set(div-1, number);
                 numbers.remove(div);
                 numbers.remove(div);
@@ -267,13 +290,13 @@ public void solve(ArrayList<Object> numbers) {
         int plus = numbers.indexOf('+');
         int minus = numbers.indexOf('-');
         if (plus == -1 || (minus < plus && minus != -1) ) {
-            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(minus-1).toString()) - (Double.parseDouble(numbers.get(minus+1).toString()))).setScale(7, 6);
+            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(minus-1).toString()) - (Double.parseDouble(numbers.get(minus+1).toString())));
             numbers.set(minus-1, number);
             numbers.remove(minus);
             numbers.remove(minus);
         }
         else if (minus > plus || minus == -1) {
-            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(plus-1).toString()) + (Double.parseDouble(numbers.get(plus+1).toString()))).setScale(7, 6);
+            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(numbers.get(plus-1).toString()) + (Double.parseDouble(numbers.get(plus+1).toString())));
             numbers.set(plus-1, number);
             numbers.remove(plus);
             numbers.remove(plus);
