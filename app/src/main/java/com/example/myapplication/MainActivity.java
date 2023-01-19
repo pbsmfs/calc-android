@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnminus:
             case R.id.btnmultiply:
             case R.id.btndivide:
-            case R.id.btnpercent:
             case R.id.btndot:
+            case R.id.btnpercent:
 //                textView.append(buttonText);
                 flag = "operation";
                 sanityCheck(flag, view);
@@ -129,15 +129,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         else {
-           if ((textView.getText().toString().endsWith("-") || textView.getText().toString().endsWith("+") || textView.getText().toString().endsWith("*") || textView.getText().toString().endsWith("/") || textView.getText().toString().endsWith("."))) {
+           if ((textView.getText().toString().endsWith("-") || textView.getText().toString().endsWith("+") || textView.getText().toString().endsWith("*") || textView.getText().toString().endsWith("/") || textView.getText().toString().endsWith(".") || textView.getText().toString().endsWith("^"))) {
                textView.setText(textView.getText().toString().substring(0, textView.getText().toString().length()-1) + buttonText);
            }
            else {
                textView.append(buttonText);
            }
-//           else {
-//               textView.setText(buttonText);
-//           }
         }
 
     }
@@ -157,11 +154,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         for (int i = 0; i < temp.length(); i++) {
             if (temp.charAt(i) != '-' && temp.charAt(i) != '+' && temp.charAt(i) != '*' && temp.charAt(i) != '/' && temp.charAt(i) != '^' && temp.charAt(i) != '.') {
-                        digits.add(Double.parseDouble(String.valueOf(temp.charAt(i))));
+                System.out.println(temp);
+                digits.add(Double.parseDouble(String.valueOf(temp.charAt(i))));
                         if (i + 1 == temp.length()) {
                             Double[] ardigits = digits.toArray(new Double[0]);
                             System.out.println("digits" + Arrays.toString(ardigits));
-                            if (ardigits[0] == 0) {
+                            if (ardigits[0] == 0 && ardigits.length > 1) {
                                 int counter = 0;
                                 while (ardigits[counter] == 0) {
                                     counter+=1;
@@ -171,26 +169,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             }
                             for (int k = 0; k < ardigits.length; k++) {
-//                                if (ardigits[k] == 0)
                                 intnumber = intnumber * 10 + ardigits[k];
                             }
                                 equation.add(intnumber);
                                 intnumber = 0;
                                 digits.clear();
-//                            }
-//                            else {
-//                                doublenumber = (float) intnumber * div;
-//                                System.out.println(doublenumber);
-//                                equation.add(doublenumber);
-//                                intnumber = 0;
-//                                digits.clear();
-//                            }
                         }
                     }
             else {
                 Double[] ardigits = digits.toArray(new Double[0]);
                 System.out.println("digits" + Arrays.toString(ardigits));
-                if (ardigits[0] == 0) {
+                if (ardigits.length > 1 && ardigits[0] == 0) {
                     int counter = 0;
                     while (ardigits[counter] == 0) {
                         counter+=1;
@@ -208,23 +197,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (temp.charAt(i) == '+' || temp.charAt(i) == '-' || temp.charAt(i) == '*' ||temp.charAt(i) == '/' || temp.charAt(i) == '^' || temp.charAt(i) == '.') {
                     equation.add(temp.charAt(i));
                 }
-//                Integer[] ardigits = digits.toArray(new Integer[0]);
-//                for (int k = 0; k < ardigits.length; k++) {
-//                    intnumber = intnumber * 10 + ardigits[k];
-//                }
-//                if (div == 0) {
-//                    System.out.println(intnumber);
-//                    equation.add(intnumber);
-//                    intnumber = 0;
-//                    digits.clear();
-//                }
-//                else {
-//                    doublenumber = (float) intnumber * div;
-//                    System.out.println(doublenumber);
-//                    equation.add(doublenumber);
-//                    intnumber = 0;
-//                    digits.clear();
-//
         }
 //        System.out.println(equation);
     }
@@ -318,53 +290,3 @@ public void solve(ArrayList<Object> numbers) {
 
 }
 }
-//    public void createNumber(int count) {
-//        ArrayList<Integer> intnumbers = new ArrayList<>();
-//        TextView textView = findViewById(R.id.textView);
-//        String temp = textView.getText().toString();
-//        int number = 0;
-//        char[] chtemp = new char[temp.length()];
-//        for (int i = 0; i < temp.length(); i++) {
-//            chtemp[i] = temp.charAt(i);
-//        }
-//        System.out.println("chtemp" + Arrays.toString(chtemp));
-//        ArrayList<Integer> digits = new ArrayList<>();
-//        for (char c : chtemp) {
-//            if (c != '-' && c != '+' && c != '*' && c != '/' && c != '%') {
-//                digits.add(Integer.parseInt(String.valueOf(c)));
-//            } else {
-//                for (int k = 0; k < digits.toArray().length; k++) {
-//                    number *= 10;
-//                    number += digits.get(k);
-////                    digits.remove()
-//                }
-//                intnumbers.add(number);
-//                digits.clear();
-//                System.out.println("number" + number);
-//            }
-//        }
-//        digits.clear();
-//        System.out.println("digits" + digits);
-//        System.out.println("intnumbers" + intnumbers);
-//        if (temp.contains(",")) {
-//            float newNumber = Float.parseFloat(temp);
-//        } else {
-//            int newNumber = Integer.parseInt(temp);
-//        }
-//        ArrayList<Character> arfs = new ArrayList<>();
-//        ArrayList<Integer> arss = new ArrayList<>();
-//        for (int i = 0; i < temp.length(); i++) {
-//            if (temp.charAt(i) != '+' || temp.charAt(i) != '-' || temp.charAt(i) != '*' || temp.charAt(i) != '/' || temp.charAt(i) != '%') {
-//                arfs.add(temp.charAt(i));
-//            }
-//            System.out.println(temp.charAt(i));
-////            arfs.add(temp.charAt(i));
-//            System.out.println(arfs);
-//        }
-//
-//        for (int j = 0; j < arfs.size(); j++) {
-//            int num = Integer.parseInt(String.valueOf(arfs));
-//            arss.add(num);
-//        }
-//        System.out.println(arss);
-
