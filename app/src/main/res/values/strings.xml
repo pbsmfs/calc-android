@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Нереальный калькулятор</string>
     <string name="_text" />
-    <string name="title_activity_main2">Нереальный калькулятор</string>
+    <string name="title_activity_main2">Нереальный калькулятор by TwiT</string>
     <string name="_btnAC">AC</string>
     <string name="_btnDel">del</string>
     <string name="_btnpercent">^</string>

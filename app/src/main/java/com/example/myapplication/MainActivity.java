@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btndivide:
             case R.id.btndot:
             case R.id.btnpercent:
-//                textView.append(buttonText);
                 flag = "operation";
                 sanityCheck(flag, view);
                 break;
@@ -198,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     equation.add(temp.charAt(i));
                 }
         }
-//        System.out.println(equation);
     }
         return equation;
 }
