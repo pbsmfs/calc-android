@@ -1,3 +1,4 @@
 # calc-android
-mini android project for IT School
-![Screenshot_5434](https://user-images.githubusercontent.com/28097467/211028145-75144ab7-708a-4e17-8dbb-0cdeace7718d.png)
+### mini android project for IT School
+
+![Screenshot_5523](https://user-images.githubusercontent.com/28097467/213780833-61e550e3-2dc1-4cc6-9712-54e06ab978fa.png)
